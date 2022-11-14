@@ -14,11 +14,16 @@ android {
         versionCode 1
         versionName "1.0"
 
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    splits {
+        abi {
+            reset()
+            enable false
+            universalApk false  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
     }
 
     buildTypes {
@@ -51,6 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation "com.facebook.react:react-native:+"
+    implementation 'org.webkit:android-jsc:+'
 }
 
 task copyDownloadableDepsToLibs(type: Copy) {
